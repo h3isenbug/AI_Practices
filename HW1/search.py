@@ -117,8 +117,6 @@ def breadthFirstSearch(problem):
 
 	fringe.push((problem.getStartState(), '', 1, []))
 	while not fringe.isEmpty():
-		if fringe.isEmpty():
-			return []
 		node = list(fringe.pop())
 		if problem.isGoalState(node[0]):
 			path = node[3][1:]
@@ -133,6 +131,7 @@ def breadthFirstSearch(problem):
 				child[3] = node[3][:]
 				child[3].append(node[1])
 				fringe.push(child)
+	return []
 
 
 def uniformCostSearch(problem):
