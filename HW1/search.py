@@ -83,6 +83,28 @@ def addPath(childNode, parentNode):
 	childNode[3].append(parentNode[1])
 	return childNode
 
+def generalSearch(problem, fringeStructure, calcChildCallback):
+	fringe = fringeStructure()
+	closed = set()
+
+	if fringeStructure.__name__ == 'PriorityQueue':
+		fringe.push((problem.getStartState(), '', 1, []), 0)
+	else:
+		fringe.push((problem.getStartState(), '', 1, []))
+
+	while not fringe.isEmpty():
+		node = list(fringe.pop())
+		if problem.isGoalState(node[0]):
+			path = node[3][1:]
+			path.append(node[1])
+			return path
+		if not node[0] in closed:
+			closed.add(node[0])
+			for child in problem.getSuccessors(node[0]):
+				child = addPath(child, node)
+				fringe.push(*calcChildCallback(child))
+	return []
+
 
 def depthFirstSearch(problem):
 	"""
