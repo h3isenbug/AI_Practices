@@ -73,6 +73,16 @@ def tinyMazeSearch(problem):
 	w = Directions.WEST
 	return [s, s, w, s, w, w, s, w]
 
+def addPath(childNode, parentNode):
+	childNode = list(childNode)
+
+	if len(childNode) == 3:
+		childNode.append([])
+
+	childNode[3] = parentNode[3][:]
+	childNode[3].append(parentNode[1])
+	return childNode
+
 
 def depthFirstSearch(problem):
 	"""
